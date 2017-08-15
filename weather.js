@@ -23,7 +23,7 @@ function savePosition(position) {
     longitude = position.coords.longitude;
     console.log("Lat "+latitude);
     apiUrl = url + "lat=" + latitude +"&"+ "lon=" + longitude +"&"+ "APPID=" + apiKey;
-    getWeather(apiUrl); 
+    getWeather(apiUrl);
 }
 
 function getWeather(url) {
@@ -36,7 +36,7 @@ function getWeather(url) {
             showWeather(res);
         } else {
             console.log("Ready state: " + this.readystate);
-            console.log("Status: " + this.status);    
+            console.log("Status: " + this.status);
         }
     };
 
@@ -47,9 +47,12 @@ function getWeather(url) {
 
 function showWeather(info){
     var weatherValue = info.main.temp;
+    var iconCode = info.weather[0].icon;
+    var description = info.weather[0].main;
     console.log("Weather: "+weatherValue);
     weatherValue = weatherValue - 273.15;
     weatherValue = Math.round(weatherValue*100) / 100;
-    document.getElementById("weather-value").innerHTML = weatherValue;
+    weatherValue = weatherValue + "°C";
+    document.getElementById("weather-value").innerHTML = "<h2>"+description+"    "+weatherValue+"</h2>";
+    document.getElementById("weather-icon").innerHTML = "<img src='img/icons/"+iconCode+".png'>"
 }
-
